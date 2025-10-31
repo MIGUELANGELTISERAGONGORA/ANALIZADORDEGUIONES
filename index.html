@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guion para Brand Movies: Un Análisis Interactivo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8F4E8;
+            color: #333333;
+        }
+        .active-master, .active-movie {
+            background-color: #4A908A !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .theory-content, .analysis-content {
+            display: none;
+        }
+        .visible {
+            display: block;
+        }
+        .paradigm-point {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .paradigm-point:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        #analysis-output-content, #ai-output-content {
+            transition: opacity 0.4s ease-in-out;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4A908A;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Basic prose styles for markdown rendering */
+        .prose h1, .prose h2, .prose h3, .prose h4 { color: #333; margin-top: 1.2em; margin-bottom: 0.5em; }
+        .prose p { margin-top: 0.5em; margin-bottom: 0.5em; }
+        .prose ul, .prose ol { margin-left: 1.5em; margin-top: 0.5em; margin-bottom: 0.5em; }
+        .prose li { margin-top: 0.25em; margin-bottom: 0.25em; }
+        .prose a { color: #4A908A; }
+        .prose strong { color: #333; }
+        .prose blockquote { border-left: 3px solid #4A908A; padding-left: 1em; color: #555; font-style: italic; }
+        .prose code { background-color: #f0f0f0; padding: 2px 5px; border-radius: 4px; font-family: monospace; }
+        .prose pre { background-color: #2d2d2d; color: #f8f8f2; padding: 1em; border-radius: 8px; overflow-x: auto; }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 tracking-tight">El Guion en las <span class="text-[#4A908A]">Brand Movies</span></h1>
+            <p class="mt-2 text-lg text-gray-600 max-w-3xl mx-auto">Aplicacion Experimental Creada por el Profesor Miguelangel Tisera</p>
+            <p class="mt-1 text-lg text-gray-600 max-w-3xl mx-auto">Una guía interactiva para deconstruir el éxito narrativo de películas como 'Air', 'Barbie' y 'Super Mario Bros' a través de las teorías clásicas de guion y copywriting.</p>
+        </header>
+        <main>
+            <section id="masters-section" class="mb-10">
+                <h2 class="text-2xl font-bold text-center mb-6 text-gray-700">1. Elige una Perspectiva Teórica</h2>
+                <div id="masters-nav" class="flex flex-wrap justify-center gap-3 md:gap-4">
+                    <button data-master="field" class="master-btn px-5 py-2.5 font-semibold bg-white border-2 border-gray-200 rounded-full shadow-sm hover:bg-gray-100 transition-all duration-300">Syd Field</button>
+                    <button data-master="mckee" class="master-btn px-5 py-2.5 font-semibold bg-white border-2 border-gray-200 rounded-full shadow-sm hover:bg-gray-100 transition-all duration-300">Robert McKee</button>
+                    <button data-master="sugarman" class="master-btn px-5 py-2.5 font-semibold bg-white border-2 border-gray-200 rounded-full shadow-sm hover:bg-gray-100 transition-all duration-300">Joseph Sugarman</button>
+                </div>
+            </section>
+            <section id="theories-content" class="mb-12 bg-white/60 p-6 md:p-8 rounded-2xl shadow-lg ring-1 ring-gray-200">
+                <div id="field-theory" class="theory-content">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">El Paradigma de Syd Field: La Estructura en Tres Actos</h3>
+                    <p class="mb-6 text-gray-600">Syd Field propuso una estructura universal que se encuentra en la mayoría de las historias exitosas. Su "Paradigma" divide el guion en tres actos definidos por puntos clave de la trama que hacen avanzar la historia y mantienen al público enganchado. Haz clic en cada punto para ver su función.</p>
+                    <div class="relative pt-8">
+                        <div class="absolute left-0 right-0 top-1/2 h-1 bg-gray-300 rounded-full"></div>
+                        <div class="relative flex justify-between items-center">
+                            <div class="paradigm-point text-center w-1/5" data-point="Planteamiento">
+                                <div class="mx-auto w-6 h-6 bg-[#4A908A] rounded-full border-4 border-white shadow-md"></div><p class="mt-2 font-semibold text-sm">Acto I: Planteamiento</p>
+                            </div>
+                            <div class="paradigm-point text-center w-1/5" data-point="Primer Nudo">
+                                <div class="mx-auto w-6 h-6 bg-[#4A908A] rounded-full border-4 border-white shadow-md"></div><p class="mt-2 font-semibold text-sm">Primer Nudo de Trama</p>
+                            </div>
+                             <div class="paradigm-point text-center w-1/5" data-point="Confrontación">
+                                <div class="mx-auto w-8 h-8 bg-amber-500 rounded-full border-4 border-white shadow-lg"></div><p class="mt-2 font-bold text-sm">Acto II: Confrontación</p>
+                            </div>
+                            <div class="paradigm-point text-center w-1/5" data-point="Segundo Nudo">
+                                <div class="mx-auto w-6 h-6 bg-[#4A908A] rounded-full border-4 border-white shadow-md"></div><p class="mt-2 font-semibold text-sm">Segundo Nudo de Trama</p>
+                            </div>
+                            <div class="paradigm-point text-center w-1/5" data-point="Resolución">
+                                <div class="mx-auto w-6 h-6 bg-[#4A908A] rounded-full border-4 border-white shadow-md"></div><p class="mt-2 font-semibold text-sm">Acto III: Resolución</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="paradigm-info" class="mt-8 p-4 bg-gray-50 rounded-lg border border-gray-200 text-center transition-opacity duration-300 opacity-0">Selecciona un punto del paradigma para ver su descripción.</div>
+                </div>
+                <div id="mckee-theory" class="theory-content">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Los Principios de Robert McKee: El Arte de la Historia</h3>
+                    <p class="mb-6 text-gray-600">Para McKee, la historia es la sustancia, no solo la forma. Se enfoca en cómo los eventos crean un cambio significativo en la vida de un personaje a través del conflicto. Sus principios clave giran en torno al diseño de la trama, la creación de personajes profundos y la satisfacción del público.</p>
+                    <div class="grid md:grid-cols-3 gap-4 text-center">
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200"><h4 class="font-bold text-[#4A908A]">Incidente Incitador</h4><p class="text-sm text-gray-600">El evento que desequilibra la vida del protagonista y lanza la historia.</p></div>
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200"><h4 class="font-bold text-[#4A908A]">Brecha entre Expectativa y Resultado</h4><p class="text-sm text-gray-600">El núcleo del conflicto. Un personaje actúa esperando un resultado, pero obtiene otro, forzándolo a actuar de nuevo.</p></div>
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200"><h4 class="font-bold text-[#4A908A]">Crisis, Clímax y Resolución</h4><p class="text-sm text-gray-600">La decisión final del protagonista ante el dilema más difícil, la confrontación final y el nuevo equilibrio que resulta.</p></div>
+                    </div>
+                </div>
+                <div id="sugarman-theory" class="theory-content">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Los "Triggers" de Joseph Sugarman: Conectando Emocionalmente</h3>
+                    <p class="mb-6 text-gray-600">Aunque es un maestro del copywriting, los "disparadores psicológicos" de Sugarman son esenciales para entender por qué las Brand Movies conectan tan profundamente. No venden un producto, venden una emoción, una idea. La narrativa se convierte en el vehículo para activar estos disparadores en el público.</p>
+                     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200"><h4 class="font-bold text-[#4A908A]">Contar una Historia</h4><p class="text-sm text-gray-600">El cerebro humano está programado para las historias. Crean una conexión inmediata y hacen que el mensaje sea memorable.</p></div>
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200"><h4 class="font-bold text-[#4A908A]">Establecer Autoridad</h4><p class="text-sm text-gray-600">La historia debe posicionar a la marca o al protagonista como un experto o una figura de confianza.</p></div>
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200"><h4 class="font-bold text-[#4A908A]">Apelar a la Emoción</h4><p class="text-sm text-gray-600">La gente compra (y conecta) con la emoción, y lo justifica con la lógica. La historia debe evocar sentimientos fuertes.</p></div>
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200"><h4 class="font-bold text-[#4A908A]">Justificar la Conexión</h4><p class="text-sm text-gray-600">Aunque la conexión es emocional, la historia proporciona razones lógicas para que el público se sienta bien con esa conexión.</p></div>
+                    </div>
+                </div>
+            </section>
+            <section id="casestudy-section" class="mb-10">
+                <h2 class="text-2xl font-bold text-center mb-6 text-gray-700">2. Analiza un Caso de Estudio</h2>
+                 <div id="movie-nav" class="flex flex-wrap justify-center gap-3 md:gap-4">
+                    <button data-movie="air" class="movie-btn px-5 py-2.5 font-semibold bg-white border-2 border-gray-200 rounded-full shadow-sm hover:bg-gray-100 transition-all duration-300">Air</button>
+                    <button data-movie="barbie" class="movie-btn px-5 py-2.5 font-semibold bg-white border-2 border-gray-200 rounded-full shadow-sm hover:bg-gray-100 transition-all duration-300">Barbie</button>
+                    <button data-movie="mario" class="movie-btn px-5 py-2.5 font-semibold bg-white border-2 border-gray-200 rounded-full shadow-sm hover:bg-gray-100 transition-all duration-300">Super Mario Bros</button>
+                </div>
+            </section>
+            <section id="analysis-output" class="bg-white p-6 md:p-8 rounded-2xl shadow-lg ring-1 ring-gray-200 min-h-[300px]">
+                <div id="analysis-output-content">
+                    <div class="text-center text-gray-500 py-12">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" /></svg>
+                        <h3 class="mt-2 text-sm font-semibold text-gray-900">Inicia tu análisis</h3>
+                        <p class="mt-1 text-sm text-gray-500">Selecciona una perspectiva teórica y un caso de estudio.</p>
+                    </div>
+                </div>
+            </section>
+            <section id="synthesis-section" class="mt-16">
+                <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Síntesis Comparativa</h2>
+                <p class="text-center text-gray-600 max-w-2xl mx-auto mb-8">Este gráfico compara cómo cada película equilibra diferentes elementos narrativos y de marca. Muestra visualmente las distintas estrategias que utilizan para conectar con la audiencia, ya sea a través de una estructura rígida, un profundo desarrollo de personajes o potentes disparadores emocionales.</p>
+                <div class="bg-white p-4 md:p-6 rounded-2xl shadow-lg ring-1 ring-gray-200">
+                    <div class="chart-container"><canvas id="synthesisChart"></canvas></div>
+                </div>
+            </section>
+            <section id="ai-tool-section" class="mt-16">
+                <h2 class="text-3xl font-bold text-center mb-6 text-gray-800">3. Analiza tu Propio Guion con la Aplicación Experimental</h2>
+                <p class="text-center text-gray-600 max-w-2xl mx-auto mb-8">Pega tu guion a continuación, selecciona la teoría que deseas aplicar y deja que la aplicación experimental creada por el profesor Miguelangel Tisera te ofrezca un análisis instantáneo con recomendaciones para mejorar tu narrativa.</p>
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg ring-1 ring-gray-200">
+                    <div class="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0 mb-6">
+                        <div class="flex-grow">
+                            <label for="script-input" class="block text-sm font-medium text-gray-700">Pega tu guion aquí:</label>
+                            <textarea id="script-input" rows="10" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#4A908A] focus:ring-[#4A908A] border p-2"></textarea>
+                        </div>
+                        <div class="md:w-1/3 space-y-4">
+                            <div>
+                                <label for="theory-select" class="block text-sm font-medium text-gray-700">Selecciona la teoría para el análisis:</label>
+                                <select id="theory-select" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#4A908A] focus:ring-[#4A908A] border p-2">
+                                    <option value="field">Syd Field</option>
+                                    <option value="mckee">Robert McKee</option>
+                                    <option value="sugarman">Joseph Sugarman</option>
+                                </select>
+                            </div>
+                            <button id="analyze-btn" class="w-full bg-[#4A908A] text-white font-semibold py-2.5 px-4 rounded-full shadow-lg hover:bg-[#3d7a74] transition-colors duration-300 flex items-center justify-center space-x-2">
+                                <span id="analyze-text">Analizar Guion</span>
+                                <div id="analyze-loader" class="loader hidden"></div>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="ai-output-content" class="mt-6 bg-gray-50 p-6 rounded-lg border border-gray-200 min-h-[100px]">
+                        <p class="text-gray-500 text-sm">El análisis de la aplicación experimental del Profesor Miguelangel Tisera aparecerá aquí.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.28.0",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/"
+  }
+}
+</script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
