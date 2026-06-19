@@ -1,5 +1,4 @@
 import { GoogleGenAI } from "@google/genai";
-
 // Declare global variables from CDN scripts for TypeScript
 declare const marked: any;
 declare const Chart: any;
